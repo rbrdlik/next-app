@@ -10,11 +10,11 @@ export const GET = async (req: Request) => {
 
     const posts = await Post.find();
 
-    return new NextResponse(JSON.stringify(posts), {
+    return NextResponse.json({ payload: posts }, {
       status: 200,
     });
   } catch (err) {
-    return new NextResponse(JSON.stringify({ error: (err as Error).message }), {
+    return NextResponse.json({ error: (err as Error).message }, {
       status: 500,
     });
   }
@@ -34,16 +34,16 @@ export const POST = async (req: Request) => {
     const result = await data.save();
 
     if (result) {
-      return new NextResponse(JSON.stringify(result), {
+      return NextResponse.json({ payload: result }, {
         status: 201,
       });
     }
-    
-    return new NextResponse(JSON.stringify({ error: "Failed to create post" }), {
+
+    return NextResponse.json({ error: "Failed to create post" }, {
       status: 400,
     });
   } catch (err) {
-    return new NextResponse(JSON.stringify({ error: (err as Error).message }), {
+    return NextResponse.json({ error: (err as Error).message }, {
       status: 500,
     });
   }
